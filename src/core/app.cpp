@@ -7,19 +7,12 @@
 
 App::App() {
   SPDLOG_INFO("Initializing app");
-  m_window = std::make_unique<Window>("Circurly");
+  m_context = std::make_unique<GLContext>();
+  m_window = std::make_unique<Window>(m_context, "Circurly");
 }
 
 void App::run() {
   SPDLOG_INFO("Starting...");
-
-  // Load OpenGL
-  SPDLOG_DEBUG("Loading OpenGL");
-  glfwMakeContextCurrent(*m_window);
-  if (!gladLoadGL((GLADloadfunc) glfwGetProcAddress)) {
-    SPDLOG_CRITICAL("Failed to load OpenGL");
-    return;
-  }
 
   // Setup
   glClearColor(1, 1, 1, 1);

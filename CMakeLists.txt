@@ -6,12 +6,15 @@ add_subdirectory("lib")
 set(CIR_SOURCES
 	"src/main.cpp"
 	"src/core/app.cpp"
+	"src/render/context.cpp"
 	"src/render/window.cpp"
 )
 
 add_executable(circurly ${CIR_SOURCES})
 
 target_include_directories(circurly PRIVATE "src")
+
+target_compile_definitions(circurly PRIVATE "SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE")
 
 target_link_libraries(circurly PRIVATE glfw glad2 imgui spdlog)
 

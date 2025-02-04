@@ -15,6 +15,7 @@ bool init() {
   error_log->set_level(spdlog::level::warn);
 
   auto logger = std::make_shared<spdlog::logger>("Circurly", sinks.begin(), sinks.end());
+  logger->set_level(spdlog::level::trace);
 
   spdlog::set_default_logger(logger);
 
