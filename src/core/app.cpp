@@ -3,13 +3,21 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <glad/gl.h>
+#include <spdlog/spdlog.h>
 
-App::App() { m_window = std::make_unique<Window>("Circurly"); }
+App::App() {
+  SPDLOG_INFO("Initializing app");
+  m_window = std::make_unique<Window>("Circurly");
+}
 
 void App::run() {
+  SPDLOG_INFO("Starting...");
+
   // Load OpenGL
+  SPDLOG_DEBUG("Loading OpenGL");
   glfwMakeContextCurrent(*m_window);
   if (!gladLoadGL((GLADloadfunc) glfwGetProcAddress)) {
+    SPDLOG_CRITICAL("Failed to load OpenGL");
     return;
   }
 
@@ -25,4 +33,6 @@ void App::run() {
     m_window->present();
     glfwWaitEvents();
   }
+
+  SPDLOG_INFO("Stopping...");
 }

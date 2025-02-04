@@ -1,5 +1,6 @@
 add_subdirectory("glfw")
 add_subdirectory("glad2/cmake")
+add_subdirectory("spdlog")
 
 add_library(imgui "imgui/imgui.cpp")
 target_include_directories(imgui PUBLIC "imgui")

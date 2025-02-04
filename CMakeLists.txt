@@ -13,7 +13,7 @@ add_executable(circurly ${CIR_SOURCES})
 
 target_include_directories(circurly PRIVATE "src")
 
-target_link_libraries(circurly PRIVATE glfw glad2 imgui)
+target_link_libraries(circurly PRIVATE glfw glad2 imgui spdlog)
 
 set_target_properties(circurly PROPERTIES
 	CXX_STANDARD 17
