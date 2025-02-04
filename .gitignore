@@ -1,0 +1,9 @@
+# Build files
+[Bb]uild/
+[Bb]in/
+[Oo]ut(put)/
+[Rr]elease/
+[Dd]ebug/
+
+compile_commands.json
+
