@@ -6,14 +6,16 @@
 
 class Renderer {
 public:
-	Renderer(const std::shared_ptr<Window> &target);
-	~Renderer();
+  Renderer(const std::shared_ptr<Window> &target);
+  ~Renderer();
 
-	void render();
+  void begin_frame();
+  void restart_frame();
+  void end_frame();
 
-	void set_target(std::shared_ptr<Window> target);
-	const std::shared_ptr<Window> &get_target() { return m_target; }
+  void set_target(std::shared_ptr<Window> target);
+  const std::shared_ptr<Window> &get_target() { return m_target; }
 
 private:
-	std::shared_ptr<Window> m_target;
+  std::shared_ptr<Window> m_target;
 };

@@ -6,6 +6,8 @@ add_subdirectory("lib")
 set(CIR_SOURCES
 	"src/main.cpp"
 	"src/core/app.cpp"
+	"src/pages/home_page.cpp"
+	"src/pages/page.cpp"
 	"src/render/context.cpp"
 	"src/render/renderer.cpp"
 	"src/render/window.cpp"

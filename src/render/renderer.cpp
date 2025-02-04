@@ -2,8 +2,8 @@
 
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <imgui.h>
 #include <glad/gl.h>
+#include <imgui.h>
 
 #include <spdlog/spdlog.h>
 
@@ -35,13 +35,18 @@ Renderer::~Renderer() {
   ImGui::DestroyContext();
 }
 
-void Renderer::render() {
+void Renderer::begin_frame() {
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
+}
 
-  ImGui::ShowDemoWindow();
+void Renderer::restart_frame() {
+  ImGui::EndFrame();
+  begin_frame();
+}
 
+void Renderer::end_frame() {
   ImGui::Render();
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
