@@ -8,3 +8,6 @@
 	path = lib/glad2
 	url = https://github.com/Dav1dde/glad.git
 	branch = glad2
+[submodule "lib/spdlog"]
+	path = lib/spdlog
+	url = https://github.com/gabime/spdlog.git
