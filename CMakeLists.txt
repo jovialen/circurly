@@ -7,6 +7,7 @@ set(CIR_SOURCES
 	"src/main.cpp"
 	"src/core/app.cpp"
 	"src/render/context.cpp"
+	"src/render/renderer.cpp"
 	"src/render/window.cpp"
 )
 

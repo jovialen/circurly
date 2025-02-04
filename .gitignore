@@ -12,4 +12,5 @@ compile_commands.json
 # Runtime files
 logs/
 *.log
+imgui.ini
 

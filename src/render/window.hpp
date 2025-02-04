@@ -16,7 +16,7 @@ public:
 	void present();
 	bool should_close();
 
-	operator GLFWwindow *() const { return m_handle; };
+	GLFWwindow *get_handle() { return m_handle; }
 
 private:
 	GLFWwindow *m_handle;

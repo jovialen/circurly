@@ -9,6 +9,8 @@ App::App() {
   SPDLOG_INFO("Initializing app");
   m_context = std::make_unique<GLContext>();
   m_window = std::make_unique<Window>(m_context, "Circurly");
+
+  m_renderer = std::make_unique<Renderer>(m_window);
 }
 
 void App::run() {
@@ -20,10 +22,9 @@ void App::run() {
   // Main loop
   while (!m_window->should_close()) {
     // Rendering
-    glClear(GL_COLOR_BUFFER_BIT);
+    m_renderer->render();
 
-    // Present
-    m_window->present();
+    // Handle events
     glfwWaitEvents();
   }
 

@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "render/context.hpp"
+#include "render/renderer.hpp"
 #include "render/window.hpp"
 
 class App {
@@ -13,6 +14,7 @@ public:
 
 private:
 	std::unique_ptr<GLContext> m_context;
-	std::unique_ptr<Window> m_window;
+	std::unique_ptr<Renderer> m_renderer;
+	std::shared_ptr<Window> m_window;
 };
 
