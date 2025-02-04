@@ -4,23 +4,11 @@
 #include <GLFW/glfw3.h>
 #include <glad/gl.h>
 
-App::App() {}
+App::App() { m_window = std::make_unique<Window>("Circurly"); }
 
 void App::run() {
-  // Load GLFW
-  if (!glfwInit()) {
-    return;
-  }
-
-  // Create window
-  GLFWwindow *window =
-      glfwCreateWindow(1280, 720, "Circurly", nullptr, nullptr);
-  if (!window) {
-    return;
-  }
-
   // Load OpenGL
-  glfwMakeContextCurrent(window);
+  glfwMakeContextCurrent(*m_window);
   if (!gladLoadGL((GLADloadfunc) glfwGetProcAddress)) {
     return;
   }
@@ -29,18 +17,12 @@ void App::run() {
   glClearColor(1, 1, 1, 1);
 
   // Main loop
-  while (!glfwWindowShouldClose(window)) {
+  while (!m_window->should_close()) {
     // Rendering
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Present
-    glfwSwapBuffers(window);
+    m_window->present();
     glfwWaitEvents();
   }
-
-  // Cleanup
-  glfwDestroyWindow(window);
-  glfwTerminate();
-
-  return;
 }

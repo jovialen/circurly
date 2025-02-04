@@ -6,6 +6,7 @@ add_subdirectory("lib")
 set(CIR_SOURCES
 	"src/main.cpp"
 	"src/core/app.cpp"
+	"src/render/window.cpp"
 )
 
 add_executable(circurly ${CIR_SOURCES})
