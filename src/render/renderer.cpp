@@ -17,6 +17,7 @@ Renderer::Renderer(const std::shared_ptr<Window> &target) {
   ImGuiIO &io = ImGui::GetIO();
   io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
   io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+  io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
   // Setup backend
   if (!ImGui_ImplOpenGL3_Init()) {

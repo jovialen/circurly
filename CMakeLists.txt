@@ -8,6 +8,7 @@ set(CIR_SOURCES
 	"src/core/app.cpp"
 	"src/pages/start_page.cpp"
 	"src/pages/page.cpp"
+	"src/pages/workspace_page.cpp"
 	"src/render/context.cpp"
 	"src/render/renderer.cpp"
 	"src/render/window.cpp"

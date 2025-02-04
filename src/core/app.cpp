@@ -38,9 +38,10 @@ void App::run() {
     } else {
       glfwWaitEvents();
 
-      // Process two frames when waiting, one for events and one for rendering.
-      // This prevents lag in the UI.
-      frame(false);
+      // Process two hidden frames when waiting for events, otherwise the UI
+      // will sometimes lag.
+      frame(false); // In case the UI changes after processing the event
+      frame(false); // In case the scene changes
     }
 
     frame();

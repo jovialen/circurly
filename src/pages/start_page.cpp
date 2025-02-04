@@ -3,6 +3,8 @@
 #include <imgui.h>
 #include <spdlog/spdlog.h>
 
+#include "workspace_page.hpp"
+
 void StartPage::process() {
   auto center = ImGui::GetMainViewport()->GetCenter();
   auto size = ImGui::GetMainViewport()->Size;
@@ -53,13 +55,16 @@ void StartPage::new_workspace() {
                        ImGuiInputTextFlags_CharsNoBlank);
 
   if (ImGui::Button("Back")) {
+    std::memset(name, '\0', 32);
     m_state = StartPageState::Init;
   }
 
   ImGui::SameLine();
+  ImGui::BeginDisabled(std::strlen(name) == 0);
   if (ImGui::Button("Create")) {
-    SPDLOG_WARN("Not implemented yet");
+    switch_page(std::make_shared<WorkspacePage>(name));
   }
+  ImGui::EndDisabled();
 
   ImGui::End();
 }
@@ -69,20 +74,23 @@ void StartPage::load_workspace() {
                ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize |
                    ImGuiWindowFlags_NoCollapse);
 
-  static int selected = 0;
+  static int selected = -1;
   static const char *workspace_names[10] = {"1", "2", "3", "4", "5",
                                             "6", "7", "8", "9", "10"};
 
   ImGui::ListBox("Workspaces", &selected, workspace_names, 10);
 
   if (ImGui::Button("Back")) {
+    selected = -1;
     m_state = StartPageState::Init;
   }
 
   ImGui::SameLine();
+  ImGui::BeginDisabled(selected == -1);
   if (ImGui::Button("Load")) {
-    SPDLOG_WARN("Not implemented yet");
+    switch_page(std::make_shared<WorkspacePage>(workspace_names[selected]));
   }
+  ImGui::EndDisabled();
 
   ImGui::End();
 }
