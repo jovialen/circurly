@@ -5,41 +5,60 @@
 #include <glad/gl.h>
 #include <spdlog/spdlog.h>
 
-#include "pages/home_page.hpp"
+#include "pages/start_page.hpp"
 
 App::App() {
   SPDLOG_INFO("Initializing app");
   m_context = std::make_unique<GLContext>();
-  m_window = std::make_unique<Window>(m_context, "Circurly");
+  m_window = std::make_shared<Window>(m_context, "Circurly");
+  m_state = std::make_shared<AppState>();
 
   m_renderer = std::make_unique<Renderer>(m_window);
-  m_page = std::make_shared<HomePage>();
+
+  m_state->page = std::make_shared<StartPage>();
+  m_state->page->set_state(m_state);
 }
 
 void App::run() {
   SPDLOG_INFO("Starting...");
+  m_state->running = true;
 
   // Setup
   glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
 
-  // Main loop
-  while (!m_window->should_close()) {
-    // Start frame
-    m_renderer->begin_frame();
+  // First render is a bit slow, so do it while the window is invisible
+  frame();
+  m_window->set_visible(true);
 
-    // Process scene
-    for (auto next_page = m_page->process(); next_page != nullptr;
-         next_page = m_page->process()) {
-      m_renderer->restart_frame();
-      m_page = next_page;
+  // Main loop
+  while (!m_window->should_close() && m_state->running) {
+    // Handle events
+    if (!m_state->wait_for_events) {
+      glfwPollEvents();
+    } else {
+      glfwWaitEvents();
+
+      // Process two frames when waiting, one for events and one for rendering.
+      // This prevents lag in the UI.
+      frame(false);
     }
 
-    // End and render frame
-    m_renderer->end_frame();
-
-    // Handle events
-    glfwWaitEvents();
+    frame();
   }
 
   SPDLOG_INFO("Stopping...");
+}
+
+void App::frame(bool render) {
+  // Start frame
+  m_renderer->begin_frame();
+
+  // Process scene
+  m_state->page->process();
+
+  // End and render frame
+  m_renderer->end_frame();
+  if (render) {
+    m_renderer->render_frame();
+  }
 }

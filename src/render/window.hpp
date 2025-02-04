@@ -10,15 +10,17 @@
 
 class Window {
 public:
-	Window(const std::unique_ptr<GLContext> &context, const std::string &title);
-	~Window();
+  Window(const std::unique_ptr<GLContext> &context, const std::string &title);
+  ~Window();
 
-	void present();
-	bool should_close();
+  void set_visible(bool visible);
+  void present();
+  bool should_close();
 
-	GLFWwindow *get_handle() { return m_handle; }
+  GLFWwindow *get_handle() { return m_handle; }
+  const std::string &get_title() { return m_title; }
 
 private:
-	GLFWwindow *m_handle;
+  GLFWwindow *m_handle;
+  std::string m_title;
 };
-

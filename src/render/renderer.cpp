@@ -41,12 +41,9 @@ void Renderer::begin_frame() {
   ImGui::NewFrame();
 }
 
-void Renderer::restart_frame() {
-  ImGui::EndFrame();
-  begin_frame();
-}
+void Renderer::end_frame() { ImGui::EndFrame(); }
 
-void Renderer::end_frame() {
+void Renderer::render_frame() {
   ImGui::Render();
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

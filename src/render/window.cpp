@@ -4,11 +4,14 @@
 #include <spdlog/spdlog.h>
 
 Window::Window(const std::unique_ptr<GLContext> &context,
-               const std::string &title) {
+               const std::string &title)
+    : m_title(title) {
   SPDLOG_DEBUG("Creating window {}", title);
 
   glfwDefaultWindowHints();
-  m_handle = glfwCreateWindow(1280, 720, title.c_str(), nullptr, context->get_share());
+  glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+  m_handle =
+      glfwCreateWindow(1280, 720, title.c_str(), nullptr, context->get_share());
 
   if (!m_handle) {
     SPDLOG_CRITICAL("Failed to create window");
@@ -19,8 +22,16 @@ Window::Window(const std::unique_ptr<GLContext> &context,
 }
 
 Window::~Window() {
-  SPDLOG_DEBUG("Destroying window");
+  SPDLOG_DEBUG("Destroying window {}", m_title);
   glfwDestroyWindow(m_handle);
+}
+
+void Window::set_visible(bool visible) {
+  if (visible) {
+    glfwShowWindow(m_handle);
+  } else {
+    glfwHideWindow(m_handle);
+  }
 }
 
 void Window::present() { glfwSwapBuffers(m_handle); }
