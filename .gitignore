@@ -5,5 +5,8 @@
 [Rr]elease/
 [Dd]ebug/
 
+.cache/
+
 compile_commands.json
+
 
